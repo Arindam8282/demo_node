@@ -1,17 +1,39 @@
-import express from 'express';
+import { Router } from 'express';
 
-import { Test } from './apis/test/controller';
+/**
+ * @description import the version 1 controllers.
+ */
+import {
+  TestV1
+} from './apis/v1/controllers';
 
-const api = express.Router();
-const test = new Test();
+/**
+ * @description import the version 2 controllers.
+ */
+import {
+  TestV2
+} from './apis/v2/controllers';
 
 /**
  * @description version 1 API routes
  */
-const routes = () => {
-  api.get('/test', test.find);
+export const v1 = () => {
+  let router = Router();
+  let test = new TestV1();
 
-  return api;
+  router.get('/test', test.find);
+
+  return router;
 };
 
-export default routes();
+/**
+ * @description version 2 API routes
+ */
+export function v2() {
+  let router = Router();
+  let test = new TestV2();
+
+  router.get('/test', test.find);
+
+  return router;
+}
