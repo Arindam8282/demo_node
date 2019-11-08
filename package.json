@@ -1,7 +1,7 @@
 {
   "name": "nodewithtypescript",
   "version": "1.0.0",
-  "description": "**Create a** `tsconfig.json` **file in your project root.**",
+  "description": "Node js project created using typescript.",
   "scripts": {
     "start": "node dist/main.js",
     "dev": "nodemon src/main.ts",
