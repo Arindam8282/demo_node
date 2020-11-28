@@ -1,39 +1,28 @@
-import { Router } from 'express';
+import { Router } from 'express'
 
 /**
  * @description import the version 1 controllers.
  */
-import {
-  TestV1
-} from './apis/v1/controllers';
+import Controller from './apis/v1/controller'
 
 /**
- * @description import the version 2 controllers.
+ * @description import the version 1 models.
  */
-import {
-  TestV2
-} from './apis/v2/controllers';
+import Model from './apis/v1/model'
 
 /**
  * @description version 1 API routes
  */
 export const v1 = () => {
-  let router = Router();
-  let test = new TestV1();
+  /**
+   * @description connect the mongodb database
+   */
+  const router = Router()
 
-  router.get('/test', test.find);
+  const { car } = Controller
 
-  return router;
-};
+  router.post('/cars', car.create)
+  router.get('/cars', car.find)
 
-/**
- * @description version 2 API routes
- */
-export function v2() {
-  let router = Router();
-  let test = new TestV2();
-
-  router.get('/test', test.find);
-
-  return router;
+  return { router }
 }
