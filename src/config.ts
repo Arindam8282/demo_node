@@ -23,6 +23,9 @@ export const v1 = () => {
 
   router.post('/cars', car.create)
   router.get('/cars', car.find)
+  router.get('/cars/:_id', car.findOne)
+  router.put('/cars/:_id', car.updateOne)
+  router.delete('/cars/:_id', car.deleteOne)
 
   return { router }
 }

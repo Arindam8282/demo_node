@@ -55,6 +55,21 @@ export default class Core {
     res.status(Code.created).send({ message: 'success', data })
   }
 
+  findOne = async (req: Request, res: Response) => {
+    // generate the query option
+    const option: QueryOption = this.generateOption(req)
+    // generate find docs
+    const { params } = req
+    // execute the query
+    const response: ModelResponse = await this.model.findOne(params, option)
+
+    if (response.error) {
+      return res.status(Code.badRequest).send(response.error)
+    }
+
+    res.status(Code.ok).send({ message: { type: 'success' }, data: response.data })
+  }
+
   find = async (req: Request, res: Response) => {
     // generate the query option
     const option: QueryOption = this.generateOption(req)
@@ -62,6 +77,36 @@ export default class Core {
     const search: any = this.generateSearch(req)
     // execute the query
     const response: ModelResponse = await this.model.find(search, option)
+
+    if (response.error) {
+      return res.status(Code.badRequest).send(response.error)
+    }
+
+    res.status(Code.ok).send({ message: { type: 'success' }, data: response.data })
+  }
+
+  updateOne = async (req: Request, res: Response) => {
+    // generate the query option
+    const option: QueryOption = this.generateOption(req)
+    // generate find docs
+    const { params, body } = req
+    // execute the query
+    const response: ModelResponse = await this.model.updateOne(params, body, option)
+
+    if (response.error) {
+      return res.status(Code.badRequest).send(response.error)
+    }
+
+    res.status(Code.ok).send({ message: { type: 'success' }, data: response.data })
+  }
+
+  deleteOne = async (req: Request, res: Response) => {
+    // generate the query option
+    const option: QueryOption = this.generateOption(req)
+    // generate find docs
+    const { params } = req
+    // execute the query
+    const response: ModelResponse = await this.model.deleteOne(params, option)
 
     if (response.error) {
       return res.status(Code.badRequest).send(response.error)

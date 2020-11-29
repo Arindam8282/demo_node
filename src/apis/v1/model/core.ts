@@ -61,10 +61,10 @@ export default class Core {
    * @description 
    * @param docs looks like ...
    */
-  async findOne(docs: any, option: QueryOption): Promise<ModelResponse> {
+  async findOne(params: any, option: QueryOption): Promise<ModelResponse> {
     let r: Document | null
     try {
-      r = await this.model.findOne(docs).sort(option.sort).skip(option.skip).limit(option.limit).populate(option?.populate).select(option?.select)
+      r = await this.model.findOne(params).sort(option.sort).skip(option.skip).limit(option.limit).populate(option?.populate).select(option?.select)
     } catch (e) {
       return { error: { message: { type: 'error', text: e.message } }, data: {} }
     }
@@ -80,12 +80,34 @@ export default class Core {
    * @description 
    * @param docs looks like ...
    */
-  async find(docs: any, option: QueryOption): Promise<ModelResponse> {
+  async find(params: any, option: QueryOption): Promise<ModelResponse> {
     let r: Document[]
     try {
-      r = await this.model.find(docs).sort(option.sort).skip(option.skip).limit(option.limit).populate(option?.populate).select(option?.select)
+      r = await this.model.find(params).sort(option.sort).skip(option.skip).limit(option.limit).populate(option?.populate).select(option?.select)
     } catch (e) {
       return { error: { message: { type: 'error', text: e.message } }, data: [] }
+    }
+
+    return { data: r }
+  }
+
+  async updateOne(params: any, docs: any, option: QueryOption) {
+    let r: any
+    try {
+      r = await this.model.updateOne(params, docs, option).sort(option.sort).skip(option.skip).limit(option.limit)
+    } catch (e) {
+      return { error: { message: { type: 'error', text: e.message } }, data: {} }
+    }
+
+    return { data: r }
+  }
+
+  async deleteOne(params: any, option: QueryOption) {
+    let r: any
+    try {
+      r = await this.model.deleteOne(params).sort(option.sort).skip(option.skip).limit(option.limit)
+    } catch (e) {
+      return { error: { message: { type: 'error', text: e.message } }, data: {} }
     }
 
     return { data: r }
