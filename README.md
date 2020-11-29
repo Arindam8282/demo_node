@@ -62,3 +62,47 @@ npm run build
 ```bash
 npm run dev
 ```
+
+### Node.js API Documentation
+
+**CREATE a `Car` API is documented below.**
+
+```cURL
+curl --location --request POST 'http://localhost:5000/api/cars' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "BMW X4",
+    "brand": "BMW",
+    "price": 6300000,
+    "photoPath": "https://res.cloudinary.com/imagebag/image/upload/q_auto,w_500/Dummy%20Uploads/bmw-x4.jpg"
+}'
+```
+
+**GET a `Car` API is documented below.**
+
+```cURL
+curl --location --request GET 'http://localhost:5000/api/cars/:_id'
+```
+
+**LIST all `Cars` API is documented below.**
+
+```cURL
+curl --location --request GET 'http://localhost:5000/api/cars?sort=price&order=-1&search=BMW&or=brand,name'
+```
+
+Query parameters can be passed `sort`, `order`, `skip`, `limit`, `select`, `populate`, `search` and `or`.
+
+Descriptions,
+
+`sort`: the key using which we want to sort the documents.
+
+`order`: `1` (asc) or `-1` (desc). default is `1`. passing `sort` is required.
+
+`skip`: skip the number of elements from the list. default `0`.
+
+`limit`: maximum number of records to be fetched. default `20`.
+
+`select`: comma separated string. e.g. `name,price`. only the selected keys will be returned.
+
+`populate`: comma separated string. schema join with keys that contains ObjectId.
+
