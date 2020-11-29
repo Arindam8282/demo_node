@@ -49,7 +49,7 @@ export const MongoDB = {
 }
 ```
 
-Please visit [/src/environment/index.ts]. The above is a json that gives you an idea of the environment file. Update with the proper values before you start.
+Please visit `/src/environment/index.ts`. The above is a json that gives you an idea of the environment file. Update with the proper values before you start.
 
 **Generate build files with `NPM`.** *Make sure you updated the tsconfig.json.*
 
