@@ -9,7 +9,7 @@ In the project directory, you can run:
 
 ### `npm start`
 
-Runs the app in the production mode. Then, visit http://localhost:5000/api/test through a browser window to check the application running.
+Runs the app in the production mode. Then, visit [http://localhost:5000/api/test](http://localhost:5000/api/test) through a browser window to check the application running.
 
 ## Learn More
 
