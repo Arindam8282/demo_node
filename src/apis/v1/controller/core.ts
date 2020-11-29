@@ -114,4 +114,8 @@ export default class Core {
 
     res.status(Code.ok).send({ message: { type: 'success' }, data: response.data })
   }
+
+  search = async (req: Request, res: Response) => {
+    res.status(Code.ok).send({ message: { type: 'success', text: 'work in progress' }, data: [] })
+  }
 }

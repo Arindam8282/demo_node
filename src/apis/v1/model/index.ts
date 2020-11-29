@@ -6,7 +6,7 @@ class Model {
   public car: Car
 
   constructor() {
-    const mongoUrl: string = `mongodb://${MongoDB.username}:${MongoDB.password}@${MongoDB.host}:${MongoDB.port}/${MongoDB.database}`
+    const mongoUrl: string = `mongodb://${MongoDB.username}:${MongoDB.password}@${MongoDB.host}:${MongoDB.port}/${MongoDB.database}?retryWrites=false&w=majority`
     mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
     mongoose.set('useCreateIndex', true)
 

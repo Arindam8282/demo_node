@@ -91,7 +91,7 @@ export default class Core {
     return { data: r }
   }
 
-  async updateOne(params: any, docs: any, option: QueryOption) {
+  async updateOne(params: any, docs: any, option: QueryOption): Promise<ModelResponse> {
     let r: any
     try {
       r = await this.model.updateOne(params, docs, option).sort(option.sort).skip(option.skip).limit(option.limit)
@@ -99,15 +99,23 @@ export default class Core {
       return { error: { message: { type: 'error', text: e.message } }, data: {} }
     }
 
+    if (!r.n) {
+      return { error: { message: { type: 'error', text: `can not find the ${this.name}` } }, data: {} }
+    }
+
     return { data: r }
   }
 
-  async deleteOne(params: any, option: QueryOption) {
+  async deleteOne(params: any, option: QueryOption): Promise<ModelResponse> {
     let r: any
     try {
       r = await this.model.deleteOne(params).sort(option.sort).skip(option.skip).limit(option.limit)
     } catch (e) {
       return { error: { message: { type: 'error', text: e.message } }, data: {} }
+    }
+
+    if (!r.n) {
+      return { error: { message: { type: 'error', text: `can not find the ${this.name}` } }, data: {} }
     }
 
     return { data: r }
