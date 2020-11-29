@@ -37,7 +37,7 @@ npm i express dotenv body-parser cors mongoose
 npm i -D typescript ts-loader ts-node webpack webpack-cli nodemon @types/cors @types/express @types/mongoose @types/node
 ```
 
-**Add the environment files if it is missing.**
+**Add the environment file if it is missing.**
 
 ```ts
 export const MongoDB = {
