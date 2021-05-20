@@ -1,4 +1,5 @@
 # ignored directories
 node_modules
-dist
-src/environment
+# dist
+.env
+# src/environment
