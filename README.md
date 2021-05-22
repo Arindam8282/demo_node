@@ -292,21 +292,21 @@ axios(config)
 
 Descriptions: The query params work with almost all the available `GET` APIs.
 
-`sort`: The key using which we want to sort the documents.
+**sort**: The key using which we want to sort the documents.
 
-`order`: `1` (asc) or `-1` (desc). Default is `1`. Passing `sort` is required.
+**order**: `1` (asc) or `-1` (desc). Default is `1`. Passing `sort` is required.
 
-`skip`: Skips the number of elements from the list. Default is `0`.
+**skip**: Skips the number of elements from the list. Default is `0`.
 
-`limit`: Maximum number of records to be fetched. Default is `20`.
+**limit**: Maximum number of records to be fetched. Default is `20`.
 
-`populate`: Comma separated string. Schema join using `Refs` that contains ObjectId.
+**populate**: Comma separated string. Schema join using `Refs` that contains ObjectId.
 
-`select`: Comma separated string. E.g. `name,department`. Only the selected keys will be returned. Populated keys will be also there in the API response.
+**select**: Comma separated string. E.g. `name,department`. Only the selected keys will be returned. Populated keys will be also there in the API response.
 
-`search`: Can be used to search text data within the records.
+**search**: Can be used to search text data within the records.
 
-`or`: Comma separated string. The fields where `search` will be applied. This param is required along with `search`. E.g. `search=Bose&or=name`. Now it will help you search the records with the text `Bose` in the `name` fields. 
+**or**: Comma separated string. The fields where `search` will be applied. This param is required along with `search`. E.g. `search=Bose&or=name`. Now it will help you search the records with the text `Bose` in the `name` fields. 
 
 ```TS
 /**
