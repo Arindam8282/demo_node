@@ -9,6 +9,12 @@ export interface QueryOption {
   populate?: string[]
 }
 
+export interface SearchOption {
+  $and?: [],
+  $or?: [],
+  $nor?: []
+}
+
 interface ErrorMessage {
   type: string,
   text: string

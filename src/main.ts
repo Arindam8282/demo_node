@@ -43,4 +43,4 @@ const server = new http.Server(app)
 /**
  * @description sail the app on the server with a given PORT.
  */
-server.listen(process.env.PORT || 5000)
+server.listen(process.env.PORT)

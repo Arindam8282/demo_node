@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import Model, { ModelResponse, QueryOption } from '../model/core'
+import Model, { ModelResponse, QueryOption, SearchOption } from '../model/core'
 import { Code, DefaultQuery } from '../constant'
 
 export default class Core {
@@ -11,7 +11,7 @@ export default class Core {
 
   }
 
-  generateOption(req: Request): QueryOption {
+  private generateOption(req: Request): QueryOption {
     const { query } = req
     const option: QueryOption = {
       sort: {},
@@ -28,21 +28,76 @@ export default class Core {
     return option
   }
 
-  generateSearch(req: Request): {} {
+  private generateKeywordSearch(req: Request): {} {
     const { query } = req
+    const { json } = this.model
 
     if (query.search && typeof query.or === 'string') {
       const keys: string[] = query.or.split(',')
       const search = {
-        $or: keys.map((key) => ({
-          [key]: { $regex: RegExp(`${query.search}`), $options: 'gi' }
-        }))
+        $or: keys.map((key) => {
+          // break the object
+          const object: any = json[key]
+          // return response
+          return {
+            [key]: !!object?.ref
+              ? query.search
+              : { $regex: RegExp(`${query.search}`), $options: 'gi' }
+          }
+        })
       }
 
       return search
     }
 
     return {}
+  }
+
+  private generateCustomSearch(req: Request): {} {
+    const { body: { $or, $and, $nor } } = req
+    const { json } = this.model
+    const search: SearchOption = {}
+
+    if ($and && typeof $and === 'object' && !!$and.length) {
+      search.$and = $and.map((item: any) => {
+        Object.keys(item).forEach((key: any) => {
+          // break the object
+          const object: any = json[key]
+          if (typeof item[key] === 'string' && !object?.ref) {
+            item = { [key]: { $regex: RegExp(item[key]), $options: 'gi' } }
+          }
+        })
+        return item
+      })
+    }
+
+    if ($or && typeof $or === 'object' && !!$or.length) {
+      search.$or = $or.map((item: any) => {
+        Object.keys(item).forEach((key: any) => {
+          // break the object
+          const object: any = json[key]
+          if (typeof item[key] === 'string' && !object?.ref) {
+            item = { [key]: { $regex: RegExp(item[key]), $options: 'gi' } }
+          }
+        })
+        return item
+      })
+    }
+
+    if ($nor && typeof $nor === 'object' && !!$nor.length) {
+      search.$nor = $nor.map((item: any) => {
+        Object.keys(item).forEach((key: any) => {
+          // break the object
+          const object: any = json[key]
+          if (typeof item[key] === 'string' && !object?.ref) {
+            item = { [key]: { $regex: RegExp(item[key]), $options: 'gi' } }
+          }
+        })
+        return item
+      })
+    }
+
+    return search
   }
 
   create = async (req: Request, res: Response) => {
@@ -52,7 +107,7 @@ export default class Core {
       return res.status(Code.badRequest).send(data.error)
     }
 
-    res.status(Code.created).send({ message: 'success', data })
+    res.status(Code.created).send({ message: 'success', ...data })
   }
 
   findOne = async (req: Request, res: Response) => {
@@ -74,7 +129,7 @@ export default class Core {
     // generate the query option
     const option: QueryOption = this.generateOption(req)
     // generate search
-    const search: any = this.generateSearch(req)
+    const search: any = this.generateKeywordSearch(req)
     // execute the query
     const response: ModelResponse = await this.model.find(search, option)
 
@@ -116,6 +171,17 @@ export default class Core {
   }
 
   search = async (req: Request, res: Response) => {
-    res.status(Code.ok).send({ message: { type: 'success', text: 'work in progress' }, data: [] })
+    // generate the query option
+    const option: QueryOption = this.generateOption(req)
+    // generate search
+    const search: any = this.generateCustomSearch(req)
+    // execute the query
+    const response: ModelResponse = await this.model.find(search, option)
+
+    if (response.error) {
+      return res.status(Code.badRequest).send(response.error)
+    }
+
+    res.status(Code.ok).send({ message: { type: 'success' }, data: response.data })
   }
 }

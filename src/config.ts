@@ -19,14 +19,20 @@ export const v1 = () => {
    */
   const router = Router()
 
-  const { car } = Controller
+  const { department, employee } = Controller
 
-  router.post('/cars', car.create)
-  router.get('/cars', car.find)
-  router.get('/cars/:_id', car.findOne)
-  router.put('/cars/:_id', car.updateOne)
-  router.delete('/cars/:_id', car.deleteOne)
-  router.post('/cars/search', car.search)
+  router.get('/department', department.find)
+  router.post('/department', department.create)
+  router.get('/department/:_id', department.findOne)
+  router.put('/department/:_id', department.updateOne)
+  router.delete('/department/:_id', department.deleteOne)
+
+  router.get('/employee', employee.find)
+  router.post('/employee', employee.create)
+  router.get('/employee/:_id', employee.findOne)
+  router.put('/employee/:_id', employee.updateOne)
+  router.delete('/employee/:_id', employee.deleteOne)
+  router.post('/searchemployee', employee.search)
 
   return { router }
 }

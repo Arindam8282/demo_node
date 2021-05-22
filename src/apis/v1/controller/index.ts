@@ -1,11 +1,15 @@
-import Car from './car'
+import Department from './department'
+import Employee from './employee'
 
 class Controller {
 
-  public car: Car
+  public department: Department
+  public employee: Employee
 
   constructor() {
-    this.car = new Car()
+    this.department = new Department()
+    this.employee = new Employee()
+
   }
 
 }

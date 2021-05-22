@@ -4,15 +4,13 @@ import Core from './core'
 /**
  * @description Project version control
  */
-export default class Car extends Core {
+export default class Employee extends Core {
 
   constructor() {
-    const name: string = 'CrudAppCar'
+    const name: string = 'employee'
     const schema: SchemaDefinition = {
       name: { type: String, required: true },
-      brand: { type: String, required: true },
-      price: { type: Number, required: true },
-      photoPath: { type: String }
+      department: { type: Schema.Types.ObjectId, ref: 'department', required: true }
     }
 
     // create the schema
