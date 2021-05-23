@@ -12,5 +12,8 @@ export const DefaultQuery = {
   skip: 0,
   limit: 20,
 
-  sort: 1 // asc
+  sort: 1, // asc
+
+  select: [],
+  populate: []
 }

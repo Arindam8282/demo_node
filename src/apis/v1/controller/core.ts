@@ -5,20 +5,19 @@ import { Code, DefaultQuery } from '../constant'
 export default class Core {
 
   constructor(
-    private name: string,
     private model: Model
   ) {
 
   }
 
-  private generateOption(req: Request): QueryOption {
+  generateOption(req: Request): QueryOption {
     const { query } = req
     const option: QueryOption = {
       sort: {},
       skip: !isNaN(Number(query.skip)) ? Number(query.skip) : DefaultQuery.skip,
       limit: !isNaN(Number(query.limit)) ? Number(query.limit) : DefaultQuery.limit,
-      select: typeof query.select === 'string' ? query.select.split(',') : [],
-      populate: typeof query.populate === 'string' ? query.populate.split(',') : []
+      select: typeof query.select === 'string' ? query.select.split(',') : DefaultQuery.select,
+      populate: typeof query.populate === 'string' ? query.populate.split(',') : DefaultQuery.populate
     }
 
     if (typeof query.sort === 'string') {
@@ -107,7 +106,7 @@ export default class Core {
       return res.status(Code.badRequest).send(data.error)
     }
 
-    res.status(Code.created).send({ message: 'success', ...data })
+    res.status(Code.created).send({ message: { type: 'success' }, ...data })
   }
 
   findOne = async (req: Request, res: Response) => {
