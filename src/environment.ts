@@ -4,4 +4,8 @@ export const MongoDB = {
   host: '',
   port: '',
   database: ''
-};
+}
+
+export const JWT = {
+  key: ''
+}
