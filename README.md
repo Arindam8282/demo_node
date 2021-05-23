@@ -47,9 +47,19 @@ export const MongoDB = {
   username: '',
   password: ''
 }
+
+export const JWT = {
+  key: ''
+}
 ```
 
 Please visit `/src/environment/index.ts`. The above is a json that gives you an idea of the environment file. Update with the proper values before you start.
+
+**Run the application in development mode.** 
+
+```bash
+npm run dev
+```
 
 **Generate build files with `NPM`.** *Make sure you updated the tsconfig.json.*
 
@@ -57,10 +67,10 @@ Please visit `/src/environment/index.ts`. The above is a json that gives you an 
 npm run build
 ```
 
-**Run the application in development mode.** 
+**Run the application in production mode.** 
 
 ```bash
-npm run dev
+npm start
 ```
 
 ### Node.js API Documentation - [Postman Documentation](https://documenter.getpostman.com/view/4293302/TzRa7j5d)
