@@ -1,9 +1,11 @@
 import mongoose, { Connection } from 'mongoose'
 import { MongoDB } from '../../../environment'
+import Admin from './admin'
 import Department from './department'
 import Employee from './employee'
 
 class Model {
+  public admin: Admin
   public department: Department
   public employee: Employee
 
@@ -16,6 +18,7 @@ class Model {
     db.on('error', console.error.bind(console, 'connection error:'))
     db.once('open', this.onConnection)
 
+    this.admin = new Admin()
     this.department = new Department()
     this.employee = new Employee()
   }

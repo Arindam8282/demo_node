@@ -11,6 +11,11 @@ import Controller from './apis/v1/controller'
 import Model from './apis/v1/model'
 
 /**
+ * @description import the version 1 models.
+ */
+ import Policy from './apis/v1/policy'
+
+/**
  * @description version 1 API routes
  */
 export const v1 = () => {
@@ -19,20 +24,33 @@ export const v1 = () => {
    */
   const router = Router()
 
-  const { department, employee } = Controller
+  const { admin, department, employee } = Controller
 
+  const { role } = Policy
+
+  /**
+   * @description department apis
+   */
   router.get('/department', department.find)
-  router.post('/department', department.create)
+  router.post('/department', role.isAuthorized, department.create)
   router.get('/department/:_id', department.findOne)
-  router.put('/department/:_id', department.updateOne)
-  router.delete('/department/:_id', department.deleteOne)
+  router.put('/department/:_id', role.isAuthorized, department.updateOne)
+  router.delete('/department/:_id', role.isAuthorized, department.deleteOne)
 
+  /**
+   * @description employee apis
+   */
   router.get('/employee', employee.find)
-  router.post('/employee', employee.create)
+  router.post('/employee', role.isAuthorized, employee.create)
   router.get('/employee/:_id', employee.findOne)
-  router.put('/employee/:_id', employee.updateOne)
-  router.delete('/employee/:_id', employee.deleteOne)
+  router.put('/employee/:_id', role.isAuthorized, employee.updateOne)
+  router.delete('/employee/:_id', role.isAuthorized, employee.deleteOne)
   router.post('/searchemployee', employee.search)
+
+  /**
+   * @description admin apis
+   */
+  router.post('/loginasadmin', admin.login)
 
   return { router }
 }
