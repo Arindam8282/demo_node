@@ -92,7 +92,8 @@ const config = {
   method: 'post',
   url: `https://officeemployee.herokuapp.com/api/${record}`,
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Authorization': 'Token ...'
   },
   data
 };
@@ -193,7 +194,8 @@ const config = {
   method: 'put',
   url: `https://officeemployee.herokuapp.com/api/${record}/${mongodbObjectId}`,
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Authorization': 'Token ...'
   },
   data
 };
@@ -224,7 +226,8 @@ const config = {
   method: 'delete',
   url: `https://officeemployee.herokuapp.com/api/${record}/${mongodbObjectId}`,
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Authorization': 'Token ...'
   }
 };
 
@@ -273,6 +276,36 @@ const data: {} = {
 const config = {
   method: 'post',
   url: `https://officeemployee.herokuapp.com/api/searchemployee`,
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  data
+};
+
+axios(config)
+.then((response) => {
+  // output should be there in response.data
+})
+.catch((error) => {
+  console.log(error);
+});
+```
+
+**Login as `Admin` API is documented below.**
+
+```TS
+/**
+ * @description {object} data for "employee".
+ * The below query will search the records with department "609d750b0b366b00dd3d9c39" and name should contain "Subhankar" or "Arindam" but not "Debnath".
+ */
+const data: {} = {
+  email: 'string',
+  password: 'string'
+};
+
+const config = {
+  method: 'post',
+  url: `https://officeemployee.herokuapp.com/api/loginasadmin`,
   headers: {
     'Content-Type': 'application/json'
   },
