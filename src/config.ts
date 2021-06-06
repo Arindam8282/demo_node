@@ -52,5 +52,10 @@ export const v1 = () => {
    */
   router.post('/loginasadmin', admin.login)
 
+  /**
+   * @description verify authorization apis
+   */
+   router.get('/isvalidtoken', role.isAuthorized, admin.isValidToken)
+
   return { router }
 }

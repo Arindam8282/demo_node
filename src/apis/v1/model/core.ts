@@ -44,6 +44,27 @@ export default class Core {
     this.model = mongoose.model(this.name, schema)
   }
 
+  async count(params: any, option: QueryOption): Promise<ModelResponse> {
+    let count: number
+    try {
+      count = await this.model.countDocuments(params)
+    } catch (e) {
+      return { error: { message: { type: 'error', text: e.message } }, data: {} }
+    }
+
+    const pages: number = !(count % option.limit)
+      ? count / option.limit
+      : Math.floor(count / option.limit) + 1
+
+    const page: number = Math.floor(option.skip / option.limit) + 1
+
+    const formal: boolean = page > pages 
+      ? false
+      : !(option.skip % option.limit)
+
+    return { data: { pagination: { count, limit: option.limit, page, pages, formal } } }
+  }
+
   /**
    * @description 
    * @param docs looks like ...

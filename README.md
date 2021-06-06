@@ -305,8 +305,8 @@ axios(config)
 
 ```TS
 /**
- * @description {object} data for "employee".
- * The below query will search the records with department "609d750b0b366b00dd3d9c39" and name should contain "Subhankar" or "Arindam" but not "Debnath".
+ * @description {object} data for "admin".
+ * The below query will search the records with email "string" and password should contain "string".
  */
 const data: {} = {
   email: 'string',
@@ -320,6 +320,31 @@ const config = {
     'Content-Type': 'application/json'
   },
   data
+};
+
+axios(config)
+.then((response) => {
+  // output should be there in response.data
+})
+.catch((error) => {
+  console.log(error);
+});
+```
+
+**Is valid `Token` API is documented below.**
+
+```TS
+/**
+ * @description verify the JWT token then returns the response.
+ */
+
+const config = {
+  method: 'get',
+  url: `https://officeemployee.herokuapp.com/api/isvalidtoken`,
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Token ...'
+  }
 };
 
 axios(config)
@@ -391,7 +416,14 @@ axios(config)
 ```JSON
 {
   "message": {
-    "type": "success"
+    "type": "success",
+    "pagination": {
+      "count": 2,
+      "limit": 20,
+      "page": 1,
+      "pages": 1,
+      "formal": true
+    }
   },
   "data": [
     {
@@ -415,7 +447,14 @@ axios(config)
 ```JSON
 {
   "message": {
-    "type": "success"
+    "type": "success",
+    "pagination": {
+      "count": 2,
+      "limit": 20,
+      "page": 1,
+      "pages": 1,
+      "formal": true
+    }
   },
   "data": [
     {

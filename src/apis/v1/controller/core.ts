@@ -136,7 +136,14 @@ export default class Core {
       return res.status(Code.badRequest).send(response.error)
     }
 
-    res.status(Code.ok).send({ message: { type: 'success' }, data: response.data })
+    // execute the query
+    const records: ModelResponse = await this.model.count(search, option)
+
+    if (records.error) {
+      return res.status(Code.badRequest).send(records.error)
+    }
+
+    res.status(Code.ok).send({ message: { type: 'success', ...records.data }, data: response.data })
   }
 
   updateOne = async (req: Request, res: Response) => {
@@ -181,6 +188,13 @@ export default class Core {
       return res.status(Code.badRequest).send(response.error)
     }
 
-    res.status(Code.ok).send({ message: { type: 'success' }, data: response.data })
+    // execute the query
+    const records: ModelResponse = await this.model.count(search, option)
+
+    if (records.error) {
+      return res.status(Code.badRequest).send(records.error)
+    }
+
+    res.status(Code.ok).send({ message: { type: 'success', ...records.data }, data: response.data })
   }
 }
