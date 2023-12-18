@@ -24,7 +24,7 @@ export const v1 = () => {
    */
   const router = Router()
 
-  const { admin, department, employee } = Controller
+  const { admin, department, employee,student } = Controller
 
   const { role } = Policy
 
@@ -50,8 +50,17 @@ export const v1 = () => {
   /**
    * @description admin apis
    */
+  router.get('/admin', admin.find)
+  router.post('/admin', admin.create)
   router.post('/loginasadmin', admin.login)
-
+  /**
+   * @description student apis
+   */
+   router.get('/student', student.find)
+   router.post('/student', student.create)
+   router.get('/student/:_id', student.findOne)
+   router.put('/student/:_id', student.updateOne)
+   router.delete('/student/:_id', student.deleteOne)
   /**
    * @description verify authorization apis
    */

@@ -43,4 +43,5 @@ const server = new http.Server(app)
 /**
  * @description sail the app on the server with a given PORT.
  */
-server.listen(process.env.PORT)
+const port = process.env.PORT
+server.listen(port, () => console.log('server running on PORT :', port))

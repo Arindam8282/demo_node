@@ -1,9 +1,9 @@
 export const MongoDB = {
-  username: '',
-  password: '',
-  host: '',
+  username: 'lib-proj-user-Arindam',
+  password: 'crackcharonliprojadi',
+  host: 'lib-proj.lzupm.mongodb.net',
   port: '',
-  database: ''
+  database: 'yuhi'
 }
 
 export const JWT = {
